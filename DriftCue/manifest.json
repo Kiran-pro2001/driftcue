@@ -7,7 +7,8 @@
     "storage",
     "alarms",
     "tabs",
-    "notifications"
+    "notifications",
+    "sidePanel"
   ],
   "host_permissions": [
     "<all_urls>"
@@ -17,13 +18,15 @@
     "type": "module"
   },
   "action": {
-    "default_popup": "popup/popup.html",
     "default_title": "DriftCue — Intention Companion",
     "default_icon": {
       "16": "assets/icon16.png",
       "48": "assets/icon48.png",
       "128": "assets/icon128.png"
     }
+  },
+  "side_panel": {
+    "default_path": "popup/popup.html"
   },
   "chrome_url_overrides": {
     "newtab": "newtab/newtab.html"

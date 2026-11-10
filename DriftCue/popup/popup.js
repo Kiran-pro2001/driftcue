@@ -380,7 +380,12 @@ btnCloseSummary.addEventListener("click", () => {
       payload: { reflection: chosenReflection, notes }
     },
     () => {
-      window.close();
+      switchView("idle");
+      try {
+        window.close();
+      } catch (e) {
+        // Safe in side panel environment
+      }
     }
   );
 });

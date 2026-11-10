@@ -29,17 +29,24 @@
 }
 
 body {
-  width: 380px;
+  width: 100%;
+  min-width: 300px;
+  min-height: 100vh;
   background-color: var(--bg-app);
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: 14px;
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .app-container {
   padding: 20px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 /* Header & Enlarged Brand */

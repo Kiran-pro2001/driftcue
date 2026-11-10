@@ -19,9 +19,39 @@ const ALARM_SESSION = "DRIFTCUE_SESSION_ALARM";
 const ALARM_TEMP_PREFIX = "DRIFTCUE_TEMP_";
 
 /**
+ * Configure Side Panel Behavior: Open side view automatically when extension icon is clicked
+ */
+function configureSidePanelBehavior() {
+  if (chrome.sidePanel && typeof chrome.sidePanel.setPanelBehavior === "function") {
+    chrome.sidePanel
+      .setPanelBehavior({ openPanelOnActionClick: true })
+      .catch((err) => console.warn("SidePanel setPanelBehavior:", err));
+  }
+}
+
+// Register side panel behavior immediately at service worker top-level
+configureSidePanelBehavior();
+
+// Fallback action click handler in case browser/environment does not auto-dispatch via setPanelBehavior
+if (chrome.action && chrome.action.onClicked) {
+  chrome.action.onClicked.addListener(async (tab) => {
+    if (chrome.sidePanel && typeof chrome.sidePanel.open === "function") {
+      try {
+        if (tab?.windowId) {
+          await chrome.sidePanel.open({ windowId: tab.windowId });
+        }
+      } catch (err) {
+        console.warn("SidePanel open fallback:", err);
+      }
+    }
+  });
+}
+
+/**
  * Extension Installation & Startup
  */
 chrome.runtime.onInstalled.addListener(async (details) => {
+  configureSidePanelBehavior();
   const store = await getStorage();
   if (details.reason === "install") {
     await setStorage(INITIAL_STATE);
