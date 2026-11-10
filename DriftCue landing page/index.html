@@ -12,6 +12,56 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 
+  <!-- Canonical & Social Sharing Meta Tags -->
+  <link rel="canonical" href="https://driftcue.netlify.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://driftcue.netlify.app/">
+  <meta property="og:title" content="DriftCue — Stop Losing Your Best Working Hours to Unconscious Tab-Switching">
+  <meta property="og:description" content="A mindful Chrome extension that catches reflex distraction tabs in under 50ms without rigid blockers treating you like a child. Built by Kiran Kumar (Ex-Oracle).">
+  <meta property="og:image" content="https://driftcue.netlify.app/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter / X Large Card Preview -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@ErKiranKumar_">
+  <meta name="twitter:creator" content="@ErKiranKumar_">
+  <meta name="twitter:title" content="DriftCue — Stop Losing Hours to Tab Autopilot">
+  <meta name="twitter:description" content="Reclaim 1–2 hours of deep focus every day without rigid website blockers. Day 001 of 365 Days, 365 Products.">
+  <meta name="twitter:image" content="https://driftcue.netlify.app/assets/og-image.png">
+
+  <!-- PostHog Analytics & Live Visitor Session Recording -->
+  <script>
+    window.POSTHOG_KEY = "YOUR_POSTHOG_API_KEY";
+    window.POSTHOG_HOST = "https://us.i.posthog.com";
+
+    (function() {
+      if (window.POSTHOG_KEY && window.POSTHOG_KEY !== "YOUR_POSTHOG_API_KEY") {
+        const phScript = document.createElement("script");
+        phScript.type = "text/javascript";
+        phScript.async = true;
+        phScript.src = window.POSTHOG_HOST + "/static/array.js";
+        phScript.onload = function() {
+          if (window.posthog) {
+            window.posthog.init(window.POSTHOG_KEY, {
+              api_host: window.POSTHOG_HOST,
+              person_profiles: "always",
+              capture_pageview: true,
+              capture_pageleave: true,
+              autocapture: true,
+              session_recording: {
+                recordCrossOriginIframes: true
+              }
+            });
+          }
+        };
+        document.head.appendChild(phScript);
+      } else {
+        console.info("[PostHog] Ready for your PostHog API Key. Set window.POSTHOG_KEY in index.html to activate live visitor tracking & session replays.");
+      }
+    })();
+  </script>
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>

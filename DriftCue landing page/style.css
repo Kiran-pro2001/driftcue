@@ -2050,3 +2050,103 @@ main {
     transition: none !important;
   }
 }
+
+/* ==========================================================================
+   VIDEO NOTICE MODAL (DARK SERENE SAGE THEME)
+   ========================================================================== */
+.video-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 10, 8, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 16px;
+}
+
+.video-modal-backdrop.modal-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.video-modal-card {
+  position: relative;
+  background: #121A15;
+  border: 1px solid rgba(122, 154, 139, 0.32);
+  border-radius: 20px;
+  padding: 36px 28px 32px;
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 40px rgba(58, 125, 68, 0.15);
+  transform: translateY(12px) scale(0.97);
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.video-modal-backdrop.modal-visible .video-modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #8fa59a;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.video-modal-close:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.video-modal-icon {
+  font-size: 42px;
+  margin-bottom: 14px;
+}
+
+.video-modal-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #f2f5f3;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.video-modal-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #a2b5ab;
+  margin: 0 0 24px;
+}
+
+.video-modal-desc strong {
+  color: #d1ded7;
+}
+
+.video-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.video-modal-btn {
+  width: 100%;
+  justify-content: center;
+  font-size: 14.5px;
+  padding: 12px 18px;
+  border-radius: 10px;
+}
