@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DriftCue — Focus Space</title>
+  <link rel="stylesheet" href="newtab.css" />
+</head>
+<body>
+  <!-- Peaceful Meditative Background Canvas -->
+  <canvas id="zen-canvas" class="zen-canvas"></canvas>
+
+  <div class="ntp-wrapper">
+    <!-- Top Bar -->
+    <header class="ntp-header">
+      <div class="brand">
+        <img src="../assets/icon48.png" alt="DriftCue Logo" class="brand-logo" />
+        <div class="brand-text-wrap">
+          <span class="brand-name">DriftCue</span>
+          <span class="brand-tagline">Notice the drift. Return to what matters.</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <span id="ntp-status-pill" class="status-pill status-idle">Ready to focus</span>
+        <button id="ntp-btn-settings" class="icon-btn" title="Options">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- STATE A: Active Focus Session Dashboard (Anchor) -->
+    <main id="ntp-view-active" class="ntp-view hidden">
+      <div class="active-anchor-card">
+        <div class="anchor-badge-wrap">
+          <span class="anchor-badge">
+            <span class="pulse-dot"></span> Active Focus Session
+          </span>
+        </div>
+
+        <p class="anchor-subheading">YOUR ACTIVE INTENTION</p>
+        <h1 id="ntp-task-title" class="anchor-task-title">Complete Python API</h1>
+
+        <!-- Timer -->
+        <div class="anchor-timer-wrap">
+          <div id="ntp-timer-digits" class="anchor-timer">24:50</div>
+          <p id="ntp-timer-status" class="anchor-timer-status">Focus session in progress</p>
+        </div>
+
+        <!-- Return to Task Action -->
+        <div class="anchor-actions">
+          <button id="ntp-btn-return-task" class="btn btn-primary btn-large">
+            <span>↩</span> Return to Active Task Tab
+          </button>
+          <div class="anchor-sub-actions">
+            <button id="ntp-btn-pause" class="btn btn-secondary">
+              <span id="ntp-pause-icon">⏸</span> <span id="ntp-pause-text">Pause</span>
+            </button>
+            <button id="ntp-btn-end" class="btn btn-secondary btn-danger-hover">
+              End Session
+            </button>
+          </div>
+        </div>
+
+        <!-- Live metrics stats -->
+        <div class="anchor-stats-row">
+          <div class="anchor-stat">
+            <span id="ntp-stat-interventions" class="stat-number">0</span>
+            <span class="stat-label">Distractions Checked</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="anchor-stat">
+            <span id="ntp-stat-recoveries" class="stat-number highlight">0</span>
+            <span class="stat-label">Mindful Recoveries</span>
+          </div>
+        </div>
+
+        <p class="anchor-quote">"One task at a time. Keep moving."</p>
+      </div>
+    </main>
+
+    <!-- STATE B: Idle Minimalist Start Page -->
+    <main id="ntp-view-idle" class="ntp-view">
+      <div class="idle-content-wrap">
+        <!-- Clock & Date -->
+        <div class="clock-wrap">
+          <div id="ntp-clock" class="digital-clock">10:30 PM</div>
+          <div id="ntp-date" class="digital-date">Monday, November 9</div>
+        </div>
+
+        <!-- Clean Google Search Bar -->
+        <form id="ntp-search-form" class="search-form">
+          <div class="search-input-wrap">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input
+              type="text"
+              id="ntp-search-input"
+              class="search-input"
+              placeholder="Search Google or type a URL..."
+              autocomplete="off"
+            />
+          </div>
+        </form>
+
+        <!-- Quick Focus Starter Card -->
+        <div class="quick-start-card">
+          <h2 class="quick-start-title">Ready to dive into a task?</h2>
+          <div class="quick-input-row">
+            <input
+              type="text"
+              id="ntp-quick-task"
+              class="quick-task-input"
+              placeholder="What are you working on?"
+              autocomplete="off"
+            />
+            <button id="ntp-btn-quick-start" class="btn btn-primary">
+              Start Focus ⚡
+            </button>
+          </div>
+          <div class="quick-pills-row">
+            <button type="button" class="quick-pill" data-mins="15">15m</button>
+            <button type="button" class="quick-pill active" data-mins="25">25m</button>
+            <button type="button" class="quick-pill" data-mins="45">45m</button>
+            <button type="button" class="quick-pill" data-mins="60">60m</button>
+            <div class="quick-custom-wrap">
+              <input type="number" id="ntp-quick-custom-mins" class="quick-custom-input" min="1" max="180" placeholder="Custom" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Focus Sessions Strip (Module 5) -->
+        <div id="ntp-recent-wrap" class="recent-sessions-wrap hidden">
+          <span class="recent-label">Recent Completed Sessions</span>
+          <div id="ntp-recent-list" class="recent-sessions-list"></div>
+        </div>
+
+        <p class="idle-tagline">Notice the drift. Return to what matters.</p>
+      </div>
+    </main>
+
+    <!-- STATE C: Session Reflection Modal / Card (Module 5) -->
+    <main id="ntp-view-summary" class="ntp-view hidden">
+      <div class="active-anchor-card summary-anchor-card">
+        <div class="summary-check-icon">✓</div>
+        <h1 class="summary-card-title">Session Complete</h1>
+        <p id="ntp-sum-task" class="summary-card-task">Authentication API</p>
+
+        <div class="anchor-stats-row">
+          <div class="anchor-stat">
+            <span id="ntp-sum-actual" class="stat-number">25m</span>
+            <span class="stat-label">Focus Time</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="anchor-stat">
+            <span id="ntp-sum-drifts" class="stat-number">2</span>
+            <span class="stat-label">Drifts Checked</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="anchor-stat">
+            <span id="ntp-sum-recoveries" class="stat-number highlight">2</span>
+            <span class="stat-label">Task Recoveries</span>
+          </div>
+        </div>
+
+        <div class="ntp-reflection-block">
+          <label class="reflection-label">Did you accomplish what you set out to do?</label>
+          <div class="ntp-reflect-btns">
+            <button type="button" class="btn-reflect selected" data-reflection="Yes">
+              <span>🎯</span> Yes, accomplished
+            </button>
+            <button type="button" class="btn-reflect" data-reflection="Partially">
+              <span>🌱</span> Partially
+            </button>
+            <button type="button" class="btn-reflect" data-reflection="Not yet">
+              <span>⏳</span> Not yet
+            </button>
+          </div>
+          <input
+            type="text"
+            id="ntp-sum-notes"
+            class="summary-note-input"
+            placeholder="Key takeaway or reflection note (optional)..."
+            maxlength="100"
+            style="margin-top: 10px;"
+          />
+        </div>
+
+        <button id="ntp-btn-save-summary" class="btn btn-primary btn-large btn-block" style="margin-top: 20px;">
+          Save Reflection & Continue
+        </button>
+      </div>
+    </main>
+  </div>
+
+  <script src="newtab.js"></script>
+</body>
+</html>

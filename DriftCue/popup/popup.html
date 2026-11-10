@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DriftCue</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <img src="../assets/icon48.png" alt="DriftCue Logo" class="brand-logo" />
+        <div>
+          <h1 class="brand-name">DriftCue</h1>
+          <p class="brand-tagline">Notice the drift. Return to what matters.</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-toggle-history" class="icon-btn" title="Session History">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </button>
+        <button id="btn-open-options" class="icon-btn" title="Settings">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- VIEW 1: Idle Setup (Start Focus Session) -->
+    <main id="view-idle" class="view">
+      <div class="field-group">
+        <label for="input-task" class="field-label">What are you working on?</label>
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="input-task"
+            placeholder="e.g., Complete authentication API"
+            autocomplete="off"
+            maxlength="80"
+          />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">How long do you want to focus?</label>
+        <div class="pills-row duration-pills">
+          <button type="button" class="pill-btn" data-mins="15">15m</button>
+          <button type="button" class="pill-btn active" data-mins="25">25m</button>
+          <button type="button" class="pill-btn" data-mins="45">45m</button>
+          <button type="button" class="pill-btn" data-mins="60">60m</button>
+          <div class="custom-duration-wrap">
+            <input type="number" id="input-custom-mins" min="1" max="180" placeholder="Custom" />
+          </div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <div class="label-with-hint">
+          <label class="field-label">Watch for these distractions:</label>
+          <span class="hint-text">Click to toggle</span>
+        </div>
+        <div id="distraction-pills" class="pills-grid">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+
+      <button id="btn-start-focus" class="btn btn-primary btn-block">
+        <span class="btn-icon">⚡</span> Start Focus Session
+      </button>
+    </main>
+
+    <!-- VIEW 2: Active Focus Session -->
+    <main id="view-active" class="view hidden">
+      <div class="session-card">
+        <div class="session-status-row">
+          <span id="session-badge" class="badge badge-focus">
+            <span class="pulse-dot"></span> Focus Active
+          </span>
+          <span id="session-goal-label" class="session-label">Session Target</span>
+        </div>
+
+        <h2 id="active-task-display" class="active-task-text">Complete Python API</h2>
+
+        <!-- Circular or digital countdown timer -->
+        <div class="timer-display-wrap">
+          <div id="active-timer-text" class="timer-digits">25:00</div>
+          <div class="timer-subtext">Remaining time</div>
+        </div>
+
+        <!-- Live distraction catch mini-stats -->
+        <div class="active-stats-grid">
+          <div class="mini-stat-card">
+            <div id="stat-interventions" class="stat-num">0</div>
+            <div class="stat-label">Drifts Checked</div>
+          </div>
+          <div class="mini-stat-card">
+            <div id="stat-returned" class="stat-num highlight">0</div>
+            <div class="stat-label">Returned to Task</div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="session-actions-row">
+          <button id="btn-pause-session" class="btn btn-secondary">
+            <span id="pause-btn-icon">⏸</span> <span id="pause-btn-label">Pause</span>
+          </button>
+          <button id="btn-end-session" class="btn btn-danger-outline">
+            End Session
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- VIEW 3: Session Reflection & Summary (Module 5) -->
+    <main id="view-summary" class="view hidden">
+      <div class="summary-card">
+        <div class="summary-header">
+          <div class="summary-check-icon">✓</div>
+          <h2 class="summary-title">Session Complete</h2>
+          <p id="summary-task-name" class="summary-subtitle">Authentication API</p>
+        </div>
+
+        <div class="summary-metrics-grid">
+          <div class="metric-box">
+            <span id="sum-actual-time" class="metric-val">25m</span>
+            <span class="metric-name">Focus Time</span>
+          </div>
+          <div class="metric-box">
+            <span id="sum-drifts" class="metric-val">2</span>
+            <span class="metric-name">Drifts Caught</span>
+          </div>
+          <div class="metric-box">
+            <span id="sum-returned" class="metric-val highlight">2</span>
+            <span class="metric-name">Task Recoveries</span>
+          </div>
+        </div>
+
+        <!-- Sites Visited Pill Strip -->
+        <div id="summary-sites-wrap" class="summary-sites-wrap hidden">
+          <span class="sites-label">Detour sites:</span>
+          <div id="summary-sites-list" class="summary-sites-list"></div>
+        </div>
+
+        <div class="reflection-section">
+          <label class="reflection-label">Did you accomplish what you set out to do?</label>
+          <div class="reflection-options">
+            <button type="button" class="btn-reflect selected" data-reflection="Yes">
+              <span class="emoji">🎯</span> Yes, accomplished
+            </button>
+            <button type="button" class="btn-reflect" data-reflection="Partially">
+              <span class="emoji">🌱</span> Partially
+            </button>
+            <button type="button" class="btn-reflect" data-reflection="Not yet">
+              <span class="emoji">⏳</span> Not yet
+            </button>
+          </div>
+        </div>
+
+        <div class="field-group" style="margin-bottom: 14px;">
+          <input
+            type="text"
+            id="input-summary-notes"
+            class="summary-note-input"
+            placeholder="Quick takeaway or note (optional)..."
+            maxlength="100"
+          />
+        </div>
+
+        <button id="btn-close-summary" class="btn btn-primary btn-block">
+          Save Reflection & Close
+        </button>
+      </div>
+    </main>
+
+    <!-- VIEW 4: Session History Log (Module 5) -->
+    <main id="view-history" class="view hidden">
+      <div class="history-card">
+        <div class="history-header">
+          <h2 class="history-title">Session History</h2>
+          <button id="btn-clear-history" class="btn-link" title="Clear all history">Clear</button>
+        </div>
+
+        <div id="history-list" class="history-list">
+          <!-- Dynamically populated or empty state -->
+        </div>
+
+        <button id="btn-back-from-history" class="btn btn-secondary btn-block" style="margin-top: 12px;">
+          Back
+        </button>
+      </div>
+    </main>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

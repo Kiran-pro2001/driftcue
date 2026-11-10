@@ -1,0 +1,7 @@
+[build]
+  publish = "DriftCue landing page"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

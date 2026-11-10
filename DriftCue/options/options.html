@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DriftCue — Settings & Preferences</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="options-container">
+    <!-- Header -->
+    <header class="options-header">
+      <div class="brand">
+        <img src="../assets/icon48.png" alt="DriftCue" class="brand-logo" />
+        <div>
+          <h1 class="brand-title">DriftCue</h1>
+          <p class="brand-subtitle">Notice the drift. Return to what matters.</p>
+        </div>
+      </div>
+      <div class="header-right-actions">
+        <div id="save-toast" class="save-toast hidden">
+          <span>✓ Changes saved automatically</span>
+        </div>
+        <button id="btn-close-options" class="close-btn" title="Close Settings & Return Home">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="options-grid">
+      <!-- Section 1: Distraction Watchlist -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-icon">⚡</div>
+          <div>
+            <h2 class="card-title">Distraction Watchlist</h2>
+            <p class="card-desc">Websites that trigger a mindful check-in when visited during a focus session.</p>
+          </div>
+        </div>
+
+        <form id="form-add-distraction" class="add-domain-form">
+          <input
+            type="text"
+            id="input-new-distraction"
+            class="domain-input"
+            placeholder="e.g. netflix.com, twitch.tv"
+            autocomplete="off"
+          />
+          <button type="submit" class="btn btn-secondary">Add Site</button>
+        </form>
+
+        <div class="domain-chips-wrap">
+          <span class="sub-label">Active Distraction Domains:</span>
+          <div id="distraction-chips-list" class="chips-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Permanent Allowlist -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-icon safe-icon">🛡</div>
+          <div>
+            <h2 class="card-title">Always-Allowed Sites (Allowlist)</h2>
+            <p class="card-desc">Work and reference websites that will <strong>never</strong> be interrupted.</p>
+          </div>
+        </div>
+
+        <form id="form-add-allowlist" class="add-domain-form">
+          <input
+            type="text"
+            id="input-new-allowlist"
+            class="domain-input"
+            placeholder="e.g. github.com, stackoverflow.com"
+            autocomplete="off"
+          />
+          <button type="submit" class="btn btn-secondary">Add Safe Site</button>
+        </form>
+
+        <div class="domain-chips-wrap">
+          <span class="sub-label">Always Allowed Domains:</span>
+          <div id="allowlist-chips-list" class="chips-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: General Focus Preferences -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-icon pref-icon">⚙</div>
+          <div>
+            <h2 class="card-title">Preferences & Habits</h2>
+            <p class="card-desc">Customize your default timer duration and new tab experience.</p>
+          </div>
+        </div>
+
+        <div class="preference-row">
+          <div class="pref-text">
+            <span class="pref-title">Default Focus Duration</span>
+            <span class="pref-desc">Pre-selected timer length when launching new sessions.</span>
+          </div>
+          <select id="select-default-duration" class="pref-select">
+            <option value="15">15 minutes</option>
+            <option value="25">25 minutes (Pomodoro)</option>
+            <option value="45">45 minutes (Deep Work)</option>
+            <option value="60">60 minutes</option>
+          </select>
+        </div>
+
+        <div class="preference-row">
+          <div class="pref-text">
+            <span class="pref-title">New Tab Intention Anchor</span>
+            <span class="pref-desc">Show your active task on the New Tab page while focusing.</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="toggle-newtab" checked />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="preference-row">
+          <div class="pref-text">
+            <span class="pref-title">Session Sound & Chimes</span>
+            <span class="pref-desc">Audio chime when your focus time completes.</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="toggle-sound" checked />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Section 4: Data & Reset -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-icon danger-icon">🗑</div>
+          <div>
+            <h2 class="card-title">Data & Privacy</h2>
+            <p class="card-desc">All DriftCue browsing data is kept 100% on your device.</p>
+          </div>
+        </div>
+
+        <div class="data-actions-row">
+          <div>
+            <span class="pref-title">Session History</span>
+            <span class="pref-desc">Clear past completed focus sessions and reflection logs.</span>
+          </div>
+          <button id="btn-clear-history-options" class="btn btn-outline-danger">
+            Clear History
+          </button>
+        </div>
+
+        <div class="data-actions-row" style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-subtle);">
+          <div>
+            <span class="pref-title">Reset to Defaults</span>
+            <span class="pref-desc">Restore original distraction lists and default settings.</span>
+          </div>
+          <button id="btn-reset-defaults" class="btn btn-outline-danger">
+            Reset Everything
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="options-footer">
+      <p>DriftCue v1.0.0 — Notice the drift. Return to what matters.</p>
+    </footer>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DriftCue — Stop Losing Your Best Working Hours to Unconscious Tab-Switching</title>
+  <meta name="description" content="Reclaim 1–2 hours of deep focus every day without rigid website blockers treating you like a child. Built by Kiran Kumar (Ex-Oracle).">
+  <link rel="icon" type="image/png" href="assets/icon48.png">
+
+  <!-- Google Font: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient 3D Interactive Graphics Background Canvas -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Sleek Dark Navigation Header (Extension Serene Sage Theme) -->
+  <header class="header header-dark" id="site-header">
+    <div class="header-inner">
+      <a href="#" class="brand">
+        <img src="assets/icon48.png" alt="DriftCue Logo" class="brand-logo" width="44" height="44">
+        <div class="brand-text-col">
+          <span class="brand-name">DriftCue</span>
+          <span class="brand-sub">Mindful Browsing</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#demo-video" class="nav-link">Demo</a>
+        <a href="#problem" class="nav-link">The Problem</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </nav>
+
+      <div class="header-actions">
+        <a 
+          href="https://wa.me/918590658979?text=Hey%20Kiran%2C%20I%20struggle%20with%20staying%20intentional%20while%20browsing.%20Would%20love%20to%20test%20DriftCue%20and%20share%20my%20feedback%20with%20you."
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-header-cta"
+        >
+          Get Access in 30 Seconds
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===================================================================
+         HERO SECTION (FULL VIEWPORT — 100vh)
+         =================================================================== -->
+    <section class="hero-section" id="hero">
+      <div class="hero-container">
+
+        <!-- Natural 2-Line Headline -->
+        <h1 class="hero-headline">
+          <span class="headline-line-1">Stop Losing Your Best Working Hours</span>
+          <span class="headline-line-2">to Unconscious Tab Switching.</span>
+        </h1>
+
+        <!-- Natural, Comfortable Subheading -->
+        <p class="hero-subhead">
+          Reclaim 1–2 hours of deep focus every day—without rigid website blockers treating you like a child.
+        </p>
+
+        <!-- Primary CTA -->
+        <div class="hero-cta-wrap">
+          <a 
+            href="https://wa.me/918590658979?text=Hey%20Kiran%2C%20I%20struggle%20with%20staying%20intentional%20while%20browsing.%20Would%20love%20to%20test%20DriftCue%20and%20share%20my%20feedback%20with%20you."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary btn-hero"
+          >
+            Get Access in 30 Seconds →
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Bottom Scroll Prompt -->
+      <a href="#demo-video" class="hero-scroll-prompt">
+        <span>Watch 30-sec demo</span>
+        <span class="scroll-arrow">↓</span>
+      </a>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 2: 30-SECOND PRODUCT WALKTHROUGH VIDEO
+         =================================================================== -->
+    <section class="section video-section" id="demo-video">
+      <div class="section-container">
+        
+        <div class="text-center section-header-wrap">
+          <h2 class="section-title">See How DriftCue Catches the Drift.</h2>
+          <p class="section-sub">No rigid walls. No lockouts. Just a calm, mindful tap on the shoulder.</p>
+        </div>
+
+        <div class="video-container-wrap">
+          <div class="video-browser-frame">
+            <div class="browser-controls">
+              <span class="ctrl-dot dot-red"></span>
+              <span class="ctrl-dot dot-yellow"></span>
+              <span class="ctrl-dot dot-green"></span>
+            </div>
+            <div class="browser-url-pill">
+              <span class="url-lock">🔒</span>
+              <span class="url-text">driftcue.internal / demo</span>
+            </div>
+            <div class="browser-spacer"></div>
+          </div>
+
+          <div class="video-media-box">
+            <!-- Insert recording file path into <source src="..."> below -->
+            <video id="hero-video-player" class="hero-video-player" controls preload="metadata">
+              <source id="video-source" src="" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+
+            <!-- Interactive Placeholder Frame -->
+            <div class="video-placeholder" id="video-placeholder">
+              <div class="placeholder-center">
+                <button class="play-btn-circle" id="play-trigger-btn" aria-label="Play Walkthrough Demo">
+                  <span class="play-triangle">▶</span>
+                </button>
+                <h3 class="placeholder-heading">30-Second Product Walkthrough</h3>
+                <p class="placeholder-caption">
+                  Click to play the live demo video.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 3: THE PROBLEM — "The Tab You Didn't Even Realize You Opened."
+         =================================================================== -->
+    <section class="section problem-section" id="problem">
+      <div class="section-container">
+        
+        <div class="text-center section-header-wrap">
+          <!-- One-liner heading -->
+          <h2 class="section-title reality-section-title">
+            <span class="single-line-heading">The Tab You Didn't Even Realize You Opened.</span>
+          </h2>
+          <p class="section-sub">It never starts as a deliberate choice. It starts as a quiet reflex.</p>
+        </div>
+
+        <!-- 3 Expanded Cards with Rich Visuals and Scaled-Up Typography -->
+        <div class="reality-cards-grid">
+          
+          <!-- Card 1 -->
+          <div class="reality-card reality-card-expanded">
+            <div class="reality-img-frame">
+              <img 
+                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" 
+                alt="Developer workstation with fresh coffee and code ready for deep work" 
+                class="reality-img" 
+                loading="lazy"
+              >
+            </div>
+            <div class="reality-body">
+              <span class="reality-num">01</span>
+              <h3 class="reality-title">You Sit Down to Work</h3>
+              <p class="reality-desc">You have clear goals and fresh coffee. You open your IDE ready to make deep progress on your most important build.</p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="reality-card reality-card-expanded">
+            <div class="reality-img-frame">
+              <img 
+                src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" 
+                alt="Developer typing fast on keyboard and switching browser tabs" 
+                class="reality-img" 
+                loading="lazy"
+              >
+            </div>
+            <div class="reality-body">
+              <span class="reality-num">02</span>
+              <h3 class="reality-title">Muscle Memory Strikes</h3>
+              <p class="reality-desc">You hit a minor bug, open a tab to research, and before you know it, your fingers type YouTube, Reddit, or X on pure reflex.</p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="reality-card reality-card-expanded">
+            <div class="reality-img-frame">
+              <img 
+                src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=800&q=80" 
+                alt="Passing time and algorithmic feeds draining focus" 
+                class="reality-img" 
+                loading="lazy"
+              >
+            </div>
+            <div class="reality-body">
+              <span class="reality-num">03</span>
+              <h3 class="reality-title">45 Minutes Vanish</h3>
+              <p class="reality-desc">Algorithmic feeds pull you down the rabbit hole. Your train of thought is gone, and the best working hours of your afternoon are lost.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Founder Story Card -->
+        <div class="founder-card-clean">
+          <div class="founder-card-top">
+            <span class="founder-badge">FROM THE FOUNDER</span>
+            <span class="founder-name">Kiran Kumar • Ex-Oracle SDE</span>
+          </div>
+          <p class="founder-quote">
+            "I lived this struggle daily as an engineer at Oracle. Traditional blockers failed because the second I needed YouTube for a coding tutorial, they locked me out. We don’t lack discipline. Blockers just treat adults like children."
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 4: CORE FEATURES & BENEFITS
+         =================================================================== -->
+    <section class="section benefits-section" id="features">
+      <div class="section-container">
+        
+        <div class="text-center section-header-wrap">
+          <h2 class="section-title">Engineered to Protect Your Flow.</h2>
+          <p class="section-sub">Calm interventions designed to keep your original intention top of mind.</p>
+        </div>
+
+        <div class="benefits-grid">
+          
+          <!-- Benefit 1 -->
+          <div class="benefit-card">
+            <div class="benefit-icon">⚡</div>
+            <h3 class="benefit-title">Instant Pattern Interrupt</h3>
+            <p class="benefit-desc">Catches distraction sites in under 50ms and pauses autoplay video and audio immediately.</p>
+            <div class="benefit-pill">✓ Never lose hours to algorithmic feeds</div>
+          </div>
+
+          <!-- Benefit 2 -->
+          <div class="benefit-card">
+            <div class="benefit-icon">⏱</div>
+            <h3 class="benefit-title">5-Minute Floating Detour Pill</h3>
+            <p class="benefit-desc">Need a 2-minute API tutorial or a bug fix? Continue with a live corner countdown that gently brings you back.</p>
+            <div class="benefit-pill">✓ Get answers without getting locked out</div>
+          </div>
+
+          <!-- Benefit 3 -->
+          <div class="benefit-card">
+            <div class="benefit-icon">↩</div>
+            <h3 class="benefit-title">1-Click Task Recovery</h3>
+            <p class="benefit-desc">Click "Take me back" to close the distraction tab and restore your code editor in 1 second flat.</p>
+            <div class="benefit-pill">✓ Instant return to flow without hunting tabs</div>
+          </div>
+
+          <!-- Benefit 4 -->
+          <div class="benefit-card">
+            <div class="benefit-icon">🌱</div>
+            <h3 class="benefit-title">Zen Breathing New Tab</h3>
+            <p class="benefit-desc">Transforms empty tabs into an intention anchor with an 8-second breathing aura that centers your thoughts.</p>
+            <div class="benefit-pill">✓ Reminds you of what you set out to finish</div>
+          </div>
+
+          <!-- Benefit 5 (Wide) -->
+          <div class="benefit-card benefit-card-wide">
+            <div class="benefit-icon">🔒</div>
+            <div class="wide-content">
+              <h3 class="benefit-title">100% On-Device Local Privacy</h3>
+              <p class="benefit-desc">Runs entirely on your machine using Chrome local storage. Zero external servers, zero analytics, zero data telemetry.</p>
+              <div class="benefit-pill">✓ Your browsing habits never leave your computer</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 5: COMPARISON MATRIX (One-Liner Heading)
+         =================================================================== -->
+    <section class="section comparison-section" id="comparison">
+      <div class="section-container">
+        
+        <div class="text-center section-header-wrap">
+          <!-- One-liner heading -->
+          <h2 class="section-title comparison-title">
+            <span class="single-line-heading">Why DriftCue Succeeds, Where Others Fail?</span>
+          </h2>
+          <p class="section-sub">Most tools treat adults like children. DriftCue treats you like a builder with a deadline.</p>
+        </div>
+
+        <div class="comparison-grid">
+          <!-- Col 1 -->
+          <div class="comp-col comp-negative">
+            <span class="comp-tag">TRADITIONAL BLOCKERS</span>
+            <h3 class="comp-title">Digital Prisons</h3>
+            <ul class="comp-points">
+              <li>✕ Locks you out completely</li>
+              <li>✕ Breaks workflow during work research</li>
+              <li>✕ High frustration ➔ Uninstalled in 48 hours</li>
+            </ul>
+          </div>
+
+          <!-- Col 2 -->
+          <div class="comp-col comp-negative">
+            <span class="comp-tag">SCREEN TIME TRACKERS</span>
+            <h3 class="comp-title">Passive Guilt</h3>
+            <ul class="comp-points">
+              <li>✕ Watches silently while you waste hours</li>
+              <li>✕ Sends an 11 PM report after the damage is done</li>
+              <li>✕ Pure guilt with zero recovery tools</li>
+            </ul>
+          </div>
+
+          <!-- Col 3: DriftCue (Extension Serene Sage Theme) -->
+          <div class="comp-col comp-positive">
+            <span class="comp-tag highlight">THE MINDFUL WAY</span>
+            <h3 class="comp-title">DriftCue</h3>
+            <ul class="comp-points">
+              <li>✓ In-the-moment tap the second you drift</li>
+              <li>✓ 5-min detour or 1-click return to task</li>
+              <li>✓ Reclaims 1–2 hours daily with zero guilt</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 6: PRICING (A Single Honest Price. Zero Subscriptions.)
+         =================================================================== -->
+    <section class="section pricing-section" id="pricing">
+      <div class="section-container">
+        
+        <div class="text-center section-header-wrap">
+          <h2 class="section-title">A Single, Honest Price. Zero Subscriptions.</h2>
+          <p class="section-sub">Pay once, own it forever. Free updates for all challenge releases.</p>
+        </div>
+
+        <div class="pricing-card-wrap">
+          <div class="pricing-card">
+            
+            <div class="urgency-badge-row">
+              <span class="urgency-pill">DAY 001 EARLY ADOPTER LICENSE</span>
+              <span class="urgency-spots">Limited to First 100 Builders</span>
+            </div>
+
+            <div class="price-display-wrap">
+              <div class="price-numbers">
+                <span class="price-inr">₹199</span>
+                <span class="price-currency">INR</span>
+                <span class="price-slash">/</span>
+                <span class="price-usd">$4.99 USD</span>
+              </div>
+              <p class="price-terms">One-time payment • Lifetime updates • Regular price ₹499 / $12</p>
+            </div>
+
+            <ul class="offer-value-list">
+              <li>
+                <span class="check-icon">✓</span>
+                <span><strong>Full Chrome Extension (Manifest V3):</strong> Intercepts distractions, pauses media.</span>
+              </li>
+              <li>
+                <span class="check-icon">✓</span>
+                <span><strong>5-Minute Floating Detour Pill:</strong> Live countdown for quick tutorials.</span>
+              </li>
+              <li>
+                <span class="check-icon">✓</span>
+                <span><strong>1-Click Task Recovery:</strong> Instant return to your code in 1 second.</span>
+              </li>
+              <li>
+                <span class="check-icon">✓</span>
+                <span><strong>Zen Breathing New Tab:</strong> Grounding goal dashboard on every Cmd+T.</span>
+              </li>
+              <li>
+                <span class="check-icon">✓</span>
+                <span><strong>100% On-Device Privacy:</strong> Zero servers, zero telemetry.</span>
+              </li>
+              <li>
+                <span class="check-icon">✓</span>
+                <span><strong>Direct Founder Access:</strong> Request features with Kiran on WhatsApp.</span>
+              </li>
+            </ul>
+
+            <div class="pricing-action-box">
+              <a 
+                href="https://wa.me/918590658979?text=Hey%20Kiran%2C%20I%20struggle%20with%20staying%20intentional%20while%20browsing.%20Would%20love%20to%20test%20DriftCue%20and%20share%20my%20feedback%20with%20you."
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary btn-pricing"
+              >
+                Get Access in 30 Seconds →
+              </a>
+              <span class="guarantee-text">🔒 30-Day No-Questions-Asked Money-Back Guarantee</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 7: FAQ (CONCISE, NO BLOAT)
+         =================================================================== -->
+    <section class="section faq-section" id="faq">
+      <div class="section-container text-container">
+        
+        <div class="text-center section-header-wrap">
+          <h2 class="section-title">Frequently Asked Questions.</h2>
+        </div>
+
+        <div class="faq-list">
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Why not just use a free website blocker?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                You’ve already uninstalled them. Strict blockers lock you out completely, which fails the second you need YouTube for an API tutorial. DriftCue doesn’t lock you out—it gives you mindful awareness and a 5-minute detour.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Is my browsing data tracked?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Zero tracking. Everything runs locally inside Chrome. We have no servers, no analytics, and no accounts.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How do I install it?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Delivered as an unpacked Chrome extension package (Manifest V3). Open <code>chrome://extensions</code>, toggle Developer mode, and click "Load unpacked". Takes under 30 seconds.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>What if it doesn't work for me?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Message Kiran on WhatsApp within 30 days for an immediate 100% refund. Zero questions asked.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 8: THE DECISION IN FRONT OF YOU (Human Presentation)
+         =================================================================== -->
+    <section class="section closing-section" id="closing">
+      <div class="section-container text-container text-center">
+        
+        <h2 class="section-title">The Decision in Front of You.</h2>
+        <p class="section-sub">Tomorrow morning, you sit down at your desk with your coffee. What happens?</p>
+
+        <!-- Redesigned Comparative Decision Cards (No Tacky Pills) -->
+        <div class="decision-cards-grid">
+          
+          <!-- Option 1: Inaction -->
+          <div class="decision-card decision-inaction">
+            <div class="decision-badge-row">
+              <span class="decision-badge-icon icon-cross">✕</span>
+              <span class="decision-badge-label">The Old Way</span>
+            </div>
+            <h3 class="decision-title">Continue on Pure Autopilot</h3>
+            <p class="decision-desc">
+              Open a tab to research an API bug. Your fingers reflexively type YouTube or Reddit. 45 minutes vanish into endless feeds, and you finish the day wondering where your hours went.
+            </p>
+          </div>
+
+          <!-- Option 2: Action -->
+          <div class="decision-card decision-action">
+            <div class="decision-badge-row">
+              <span class="decision-badge-icon icon-check">✓</span>
+              <span class="decision-badge-label">The Mindful Way</span>
+            </div>
+            <h3 class="decision-title">Protect Your Flow with DriftCue</h3>
+            <p class="decision-desc">
+              DriftCue catches the reflex in under 50ms. Take a deliberate 5-minute detour with a live countdown or return to your code in 1 second. Reclaim 1–2 hours of deep focus every day.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="final-cta-wrap">
+          <a 
+            href="https://wa.me/918590658979?text=Hey%20Kiran%2C%20I%20struggle%20with%20staying%20intentional%20while%20browsing.%20Would%20love%20to%20test%20DriftCue%20and%20share%20my%20feedback%20with%20you."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary btn-hero"
+          >
+            Get Access in 30 Seconds →
+          </a>
+          <p class="final-cta-sub">₹199 / $4.99 USD One-Time • 30-Day Money-Back Guarantee</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Clean Footer (Day 001/365 & Socials) -->
+  <footer class="footer">
+    <div class="footer-container">
+      
+      <!-- Left: Challenge info & 2-Liner Founder Bio -->
+      <div class="footer-left">
+        <div class="footer-brand">
+          <img src="assets/icon48.png" alt="DriftCue Logo" width="34" height="34">
+          <span class="footer-brand-name">DriftCue</span>
+        </div>
+        <p class="footer-challenge-badge">
+          <span class="challenge-dot"></span>
+          <span>Day 001 of 365 Days, 365 Products Challenge</span>
+        </p>
+
+        <!-- Two-Liner Founder Note -->
+        <div class="footer-founder-bio">
+          <p class="founder-bio-line1">Crafted by <strong>Kiran Kumar</strong> • Ex-Software Engineer at <strong>Oracle</strong></p>
+          <p class="founder-bio-line2">Crafted from Bengaluru, Bharat 🇮🇳</p>
+        </div>
+
+        <span class="footer-copyright">© 2026 Kiran Kumar. All rights reserved.</span>
+      </div>
+
+      <!-- Right: All Socials -->
+      <div class="footer-right">
+        <span class="footer-socials-title">Follow the 365 Journey</span>
+        
+        <div class="footer-social-links">
+          <a href="https://x.com/ErKiranKumar_" target="_blank" rel="noopener noreferrer" class="social-pill">
+            <span class="social-icon">𝕏</span> Twitter / X
+          </a>
+          <a href="https://www.linkedin.com/in/kiran-kumar-sde/" target="_blank" rel="noopener noreferrer" class="social-pill">
+            <span class="social-icon">in</span> LinkedIn
+          </a>
+          <a href="https://github.com/Kiran-pro2001" target="_blank" rel="noopener noreferrer" class="social-pill">
+            <span class="social-icon">⌥</span> GitHub
+          </a>
+          <a href="https://www.youtube.com/@KiranKumar-wu9fp" target="_blank" rel="noopener noreferrer" class="social-pill">
+            <span class="social-icon">▶</span> YouTube
+          </a>
+        </div>
+
+        <div class="footer-community-links">
+          <a href="https://substack.com/@kirankumar778023" target="_blank" rel="noopener noreferrer" class="comm-link">Substack</a>
+          <span class="comm-sep">·</span>
+          <a href="https://medium.com/@kk9840042" target="_blank" rel="noopener noreferrer" class="comm-link">Medium</a>
+          <span class="comm-sep">·</span>
+          <a href="https://telegram.me/kiranprodev" target="_blank" rel="noopener noreferrer" class="comm-link">Telegram</a>
+          <span class="comm-sep">·</span>
+          <span class="comm-link" title="Discord: kirankumar9672">Discord</span>
+          <span class="comm-sep">·</span>
+          <a href="https://www.instagram.com/kiran_kumar_20.0/" target="_blank" rel="noopener noreferrer" class="comm-link">Instagram</a>
+          <span class="comm-sep">·</span>
+          <a href="https://www.threads.com/@kiran_kumar_20.0" target="_blank" rel="noopener noreferrer" class="comm-link">Threads</a>
+          <span class="comm-sep">·</span>
+          <a href="https://www.reddit.com/user/No-Helicopter-6374/" target="_blank" rel="noopener noreferrer" class="comm-link">Reddit</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
