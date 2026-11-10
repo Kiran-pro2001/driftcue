@@ -7,7 +7,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   initFaqAccordion();
   initVideoPlayer();
-  initVanishingTimer();
   initScrollReveal();
   init3DCardTilt();
   initAmbient3DBackground();
@@ -85,26 +84,6 @@ function initVideoPlayer() {
       total_duration: Math.round(video.duration)
     });
   });
-}
-
-/**
- * 45 Minutes Vanish — Animated Live Urgency Timer
- * Actively counts down seconds to visually demonstrate time slipping away down rabbit holes
- */
-function initVanishingTimer() {
-  const timerEl = document.getElementById("live-vanish-timer");
-  if (!timerEl) return;
-
-  let totalSeconds = 45 * 60; // 45 minutes countdown
-
-  setInterval(() => {
-    totalSeconds--;
-    if (totalSeconds < 0) totalSeconds = 45 * 60;
-
-    const mins = Math.floor(totalSeconds / 60);
-    const secs = totalSeconds % 60;
-    timerEl.textContent = `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
-  }, 1000);
 }
 
 /**
