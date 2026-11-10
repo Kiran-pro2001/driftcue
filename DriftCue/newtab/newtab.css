@@ -684,3 +684,140 @@ body {
 .summary-note-input:focus {
   border-color: var(--accent-sage);
 }
+
+/* ==========================================================================
+   Timer Seconds Intuition & New Tab Distraction Watchlist
+   ========================================================================== */
+
+.anchor-timer-seconds-sub {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent-sage-light);
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+}
+
+.ntp-custom-subhint {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 8px;
+  text-align: left;
+}
+
+.ntp-custom-subhint strong {
+  color: var(--accent-sage-light);
+}
+
+.ntp-distractions-section {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+  text-align: left;
+}
+
+.ntp-distractions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.ntp-distractions-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ntp-distractions-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.ntp-pills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.ntp-distraction-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  color: var(--text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.ntp-distraction-pill:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: #3b4540;
+}
+
+.ntp-distraction-pill.checked {
+  background: rgba(122, 154, 139, 0.16);
+  border-color: var(--accent-sage);
+  color: var(--accent-sage-light);
+  font-weight: 600;
+}
+
+.ntp-distraction-pill .pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: background 0.15s ease;
+}
+
+.ntp-distraction-pill.checked .pill-dot {
+  background: var(--accent-sage-light);
+}
+
+.ntp-distraction-pill.custom-pill {
+  border-style: dashed;
+}
+
+.ntp-distraction-pill .pill-remove-x {
+  margin-left: 4px;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.ntp-distraction-pill .pill-remove-x:hover {
+  color: #ff8f98;
+}
+
+.ntp-add-distraction-row {
+  display: flex;
+  gap: 8px;
+}
+
+.ntp-inline-input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--text-primary);
+  font-size: 12px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.ntp-inline-input:focus {
+  border-color: var(--accent-sage);
+}
+
+.ntp-inline-input::placeholder {
+  color: var(--text-muted);
+  font-size: 11px;
+}

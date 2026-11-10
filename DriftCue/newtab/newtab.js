@@ -15,6 +15,7 @@ const ntpBtnSettings = document.getElementById("ntp-btn-settings");
 // Active View Elements
 const ntpTaskTitle = document.getElementById("ntp-task-title");
 const ntpTimerDigits = document.getElementById("ntp-timer-digits");
+const ntpTimerSecondsSub = document.getElementById("ntp-timer-seconds-sub");
 const ntpTimerStatus = document.getElementById("ntp-timer-status");
 const ntpBtnReturnTask = document.getElementById("ntp-btn-return-task");
 const ntpBtnPause = document.getElementById("ntp-btn-pause");
@@ -33,6 +34,9 @@ const ntpQuickTask = document.getElementById("ntp-quick-task");
 const ntpBtnQuickStart = document.getElementById("ntp-btn-quick-start");
 const quickPills = document.querySelectorAll(".quick-pill");
 const ntpQuickCustomMins = document.getElementById("ntp-quick-custom-mins");
+const ntpDistractionPills = document.getElementById("ntp-distraction-pills");
+const ntpInputDistraction = document.getElementById("ntp-input-distraction");
+const ntpBtnAddDistraction = document.getElementById("ntp-btn-add-distraction");
 const ntpRecentWrap = document.getElementById("ntp-recent-wrap");
 const ntpRecentList = document.getElementById("ntp-recent-list");
 
@@ -46,10 +50,103 @@ const ntpBtnSaveSummary = document.getElementById("ntp-btn-save-summary");
 const reflectBtns = document.querySelectorAll(".ntp-reflect-btns .btn-reflect");
 
 // Local State
+const DEFAULT_PRESET_DISTRACTIONS = [
+  { id: "youtube", label: "YouTube", domain: "youtube.com" },
+  { id: "reddit", label: "Reddit", domain: "reddit.com" },
+  { id: "x", label: "X / Twitter", domain: "x.com" },
+  { id: "instagram", label: "Instagram", domain: "instagram.com" },
+  { id: "linkedin", label: "LinkedIn", domain: "linkedin.com" },
+  { id: "tiktok", label: "TikTok", domain: "tiktok.com" }
+];
+
 let liveTimerInterval = null;
 let currentSession = null;
 let quickSelectedMins = 25;
 let chosenReflection = "Yes";
+let customDistractionDomains = [];
+let selectedDistractionDomains = new Set(DEFAULT_PRESET_DISTRACTIONS.map((d) => d.domain));
+
+/**
+ * Clean domain from input string
+ */
+function cleanDomain(input) {
+  if (!input) return "";
+  let domain = input.trim().toLowerCase();
+  domain = domain.replace(/^https?:\/\//i, "");
+  domain = domain.replace(/^www\./i, "");
+  domain = domain.split("/")[0];
+  domain = domain.split("?")[0];
+  domain = domain.split(":")[0];
+  return domain;
+}
+
+/**
+ * Render distraction pills in New Tab Quick-Start Card
+ */
+function renderNtpDistractionPills() {
+  if (!ntpDistractionPills) return;
+  ntpDistractionPills.innerHTML = "";
+
+  // Presets
+  DEFAULT_PRESET_DISTRACTIONS.forEach((item) => {
+    const pill = document.createElement("button");
+    pill.type = "button";
+    const isChecked = selectedDistractionDomains.has(item.domain);
+    pill.className = `ntp-distraction-pill ${isChecked ? "checked" : ""}`;
+    pill.dataset.domain = item.domain;
+    pill.innerHTML = `<span class="pill-dot"></span><span>${item.label}</span>`;
+
+    pill.addEventListener("click", () => {
+      if (selectedDistractionDomains.has(item.domain)) {
+        selectedDistractionDomains.delete(item.domain);
+        pill.classList.remove("checked");
+      } else {
+        selectedDistractionDomains.add(item.domain);
+        pill.classList.add("checked");
+      }
+    });
+
+    ntpDistractionPills.appendChild(pill);
+  });
+
+  // Custom added
+  customDistractionDomains.forEach((dom) => {
+    const pill = document.createElement("button");
+    pill.type = "button";
+    const isChecked = selectedDistractionDomains.has(dom);
+    pill.className = `ntp-distraction-pill custom-pill ${isChecked ? "checked" : ""}`;
+    pill.dataset.domain = dom;
+    pill.innerHTML = `
+      <span class="pill-dot"></span>
+      <span>${escapeHtml(dom)}</span>
+      <span class="pill-remove-x" title="Delete ${escapeHtml(dom)}">×</span>
+    `;
+
+    pill.addEventListener("click", (e) => {
+      if (e.target.classList.contains("pill-remove-x")) {
+        e.stopPropagation();
+        customDistractionDomains = customDistractionDomains.filter((d) => d !== dom);
+        selectedDistractionDomains.delete(dom);
+        chrome.runtime.sendMessage({
+          type: "UPDATE_SETTINGS",
+          payload: { customDistractions: customDistractionDomains }
+        });
+        renderNtpDistractionPills();
+        return;
+      }
+
+      if (selectedDistractionDomains.has(dom)) {
+        selectedDistractionDomains.delete(dom);
+        pill.classList.remove("checked");
+      } else {
+        selectedDistractionDomains.add(dom);
+        pill.classList.add("checked");
+      }
+    });
+
+    ntpDistractionPills.appendChild(pill);
+  });
+}
 
 /**
  * Format seconds to MM:SS
@@ -92,6 +189,9 @@ function startLiveCountdown(session) {
       const sec = Math.max(0, Math.floor(remainingMs / 1000));
       ntpTimerDigits.textContent = formatTime(sec);
       ntpTimerDigits.classList.add("paused");
+      if (ntpTimerSecondsSub) {
+        ntpTimerSecondsSub.textContent = `Paused • ${sec.toLocaleString()} seconds remaining`;
+      }
       ntpTimerStatus.textContent = "Session is paused (break)";
       document.title = `[Paused] ${session.task || "Focus"} — DriftCue`;
       return;
@@ -103,6 +203,9 @@ function startLiveCountdown(session) {
     const sec = Math.max(0, Math.floor(remainingMs / 1000));
 
     ntpTimerDigits.textContent = formatTime(sec);
+    if (ntpTimerSecondsSub) {
+      ntpTimerSecondsSub.textContent = `Ticking live • ${sec.toLocaleString()} seconds remaining`;
+    }
     document.title = `${formatTime(sec)} • ${session.task || "Focus"} — DriftCue`;
 
     if (sec <= 0) {
@@ -218,6 +321,12 @@ function syncAndRender() {
   chrome.runtime.sendMessage({ type: "GET_STATE" }, (res) => {
     if (!res || !res.success) return;
 
+    if (res.settings && Array.isArray(res.settings.customDistractions)) {
+      customDistractionDomains = res.settings.customDistractions;
+      customDistractionDomains.forEach((d) => selectedDistractionDomains.add(d));
+    }
+    renderNtpDistractionPills();
+
     if (res.pendingSummary) {
       renderSummaryView(res.pendingSummary);
     } else if (res.session && res.session.isActive) {
@@ -314,6 +423,7 @@ if (ntpQuickCustomMins) {
 // Quick Start Focus Session
 function triggerQuickStart() {
   const task = ntpQuickTask.value.trim() || "Deep Focus";
+  const distractionDomains = Array.from(selectedDistractionDomains);
   ntpBtnQuickStart.disabled = true;
 
   chrome.runtime.sendMessage(
@@ -321,7 +431,8 @@ function triggerQuickStart() {
       type: "START_SESSION",
       payload: {
         task,
-        durationMinutes: quickSelectedMins
+        durationMinutes: quickSelectedMins,
+        distractionDomains
       }
     },
     (res) => {
@@ -339,6 +450,41 @@ ntpQuickTask.addEventListener("keydown", (e) => {
     triggerQuickStart();
   }
 });
+
+// Inline Add Distraction (New Tab)
+function handleNtpAddDistraction() {
+  if (!ntpInputDistraction) return;
+  const domain = cleanDomain(ntpInputDistraction.value);
+  if (!domain) return;
+
+  if (!customDistractionDomains.includes(domain) && !DEFAULT_PRESET_DISTRACTIONS.some((p) => p.domain === domain)) {
+    customDistractionDomains.push(domain);
+  }
+  selectedDistractionDomains.add(domain);
+
+  chrome.runtime.sendMessage(
+    {
+      type: "UPDATE_SETTINGS",
+      payload: { customDistractions: customDistractionDomains }
+    },
+    () => {
+      ntpInputDistraction.value = "";
+      renderNtpDistractionPills();
+    }
+  );
+}
+
+if (ntpBtnAddDistraction) {
+  ntpBtnAddDistraction.addEventListener("click", handleNtpAddDistraction);
+}
+if (ntpInputDistraction) {
+  ntpInputDistraction.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleNtpAddDistraction();
+    }
+  });
+}
 
 // Reflection Button Choices
 reflectBtns.forEach((btn) => {

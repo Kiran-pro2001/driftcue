@@ -43,9 +43,10 @@
         <p class="anchor-subheading">YOUR ACTIVE INTENTION</p>
         <h1 id="ntp-task-title" class="anchor-task-title">Complete Python API</h1>
 
-        <!-- Timer -->
+        <!-- Timer with Live Seconds Intuition -->
         <div class="anchor-timer-wrap">
           <div id="ntp-timer-digits" class="anchor-timer">24:50</div>
+          <div id="ntp-timer-seconds-sub" class="anchor-timer-seconds-sub">1,490 seconds remaining</div>
           <p id="ntp-timer-status" class="anchor-timer-status">Focus session in progress</p>
         </div>
 
@@ -129,6 +130,30 @@
             <button type="button" class="quick-pill" data-mins="60">60m</button>
             <div class="quick-custom-wrap">
               <input type="number" id="ntp-quick-custom-mins" class="quick-custom-input" min="1" max="180" placeholder="Custom" />
+            </div>
+          </div>
+          <p class="ntp-custom-subhint">⏳ Enter custom duration in <strong>minutes</strong> (e.g. 35, 90 mins)</p>
+
+          <!-- Watch for Distractions Section -->
+          <div class="ntp-distractions-section">
+            <div class="ntp-distractions-header">
+              <span class="ntp-distractions-title">Watch for these distractions:</span>
+              <span class="ntp-distractions-hint">Toggle to watch or unwatch</span>
+            </div>
+            <div id="ntp-distraction-pills" class="ntp-pills-grid">
+              <!-- Populated dynamically via JS -->
+            </div>
+            <div class="ntp-add-distraction-row">
+              <input
+                type="text"
+                id="ntp-input-distraction"
+                class="ntp-inline-input"
+                placeholder="Add website URL (e.g. reddit.com, netflix.com)..."
+                autocomplete="off"
+              />
+              <button type="button" id="ntp-btn-add-distraction" class="btn btn-secondary btn-sm">
+                + Add Site
+              </button>
             </div>
           </div>
         </div>
