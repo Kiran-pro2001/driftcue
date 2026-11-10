@@ -60,6 +60,8 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
@@ -74,6 +76,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   position: relative;
   overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }
 
 /* Ambient 3D Interactive Graphics Background Canvas */
@@ -1507,14 +1511,29 @@ main {
 }
 
 /* ==========================================================================
-   RESPONSIVENESS
+   RESPONSIVENESS (PERFECT MOBILE EXPERIENCE — LAPTOP UNTOUCHED)
    ========================================================================== */
+
+/* Tablet & Smaller Laptops (<= 1024px) */
 @media (max-width: 1024px) {
+  .section {
+    padding: 90px 4vw;
+  }
+  .section-header-wrap {
+    margin-bottom: 48px;
+  }
   .hero-headline {
-    font-size: 52px;
+    font-size: 48px;
   }
   .section-title {
     font-size: 38px;
+  }
+  .reality-section-title,
+  .comparison-title {
+    font-size: 34px;
+  }
+  .single-line-heading {
+    white-space: normal !important;
   }
   .reality-cards-grid,
   .benefits-grid,
@@ -1534,38 +1553,423 @@ main {
   }
 }
 
+/* Hide desktop nav links on smaller screens (<= 860px) */
 @media (max-width: 860px) {
   .nav-links {
     display: none;
   }
 }
 
-@media (max-width: 640px) {
-  .hero-headline {
-    font-size: 38px;
-    line-height: 1.2;
+/* Mobile Tablets & Large Phones (<= 768px) */
+@media (max-width: 768px) {
+  .header {
+    height: 76px;
+    padding: 0 5vw;
   }
-  .hero-subhead {
-    font-size: 19px;
+  .brand-logo {
+    width: 38px;
+    height: 38px;
+  }
+  .brand-name {
+    font-size: 21px;
+  }
+  .brand-sub {
+    font-size: 11px;
+  }
+  .btn-header-cta {
+    padding: 9px 16px;
+    font-size: 14px;
+  }
+
+  .section {
+    padding: 70px 5vw;
+  }
+  .section-header-wrap {
+    margin-bottom: 36px;
+  }
+  .section-title {
+    font-size: 32px;
+  }
+  .section-sub {
+    font-size: 17.5px;
     line-height: 1.55;
   }
-  .section {
-    padding: 80px 20px;
+
+  .reality-card-expanded {
+    min-height: auto;
+    padding: 24px 20px;
   }
+  .reality-img-frame {
+    height: 190px;
+  }
+  .reality-title {
+    font-size: 23px;
+  }
+  .reality-desc {
+    font-size: 16.5px;
+  }
+
+  .founder-card-clean {
+    padding: 30px 22px;
+  }
+  .founder-quote {
+    font-size: 17.5px;
+    line-height: 1.6;
+  }
+
+  .benefit-card {
+    padding: 32px 24px;
+  }
+  .benefit-title {
+    font-size: 22px;
+  }
+  .benefit-desc {
+    font-size: 16px;
+  }
+
+  .comp-col {
+    padding: 32px 24px;
+  }
+  .comp-title {
+    font-size: 23px;
+  }
+  .comp-points {
+    font-size: 16px;
+  }
+
   .pricing-card {
     padding: 40px 24px;
   }
   .price-inr {
-    font-size: 54px;
+    font-size: 60px;
   }
   .price-usd {
-    font-size: 30px;
+    font-size: 32px;
+  }
+  .price-numbers {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .decision-card {
+    padding: 32px 24px;
+  }
+  .decision-title {
+    font-size: 22px;
+  }
+  .decision-desc {
+    font-size: 16px;
+  }
+
+  .faq-question {
+    padding: 20px 20px;
+    font-size: 18px;
+  }
+}
+
+/* Standard & Small Mobile Phones (<= 520px / 480px / 360px) */
+@media (max-width: 520px) {
+  .header {
+    height: 70px;
+    padding: 0 16px;
+  }
+  .brand {
+    gap: 10px;
+  }
+  .brand-logo {
+    width: 34px;
+    height: 34px;
+  }
+  .brand-name {
+    font-size: 19px;
+  }
+  .brand-sub {
+    display: none;
+  }
+  .btn-header-cta {
+    padding: 8px 14px;
+    font-size: 13.5px;
+    border-radius: 8px;
+  }
+
+  .hero-section {
+    min-height: auto;
+    padding: 44px 16px 36px;
+  }
+  .hero-headline {
+    font-size: clamp(28px, 8.2vw, 36px);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .hero-subhead {
+    font-size: 16.5px;
+    line-height: 1.55;
+    margin-bottom: 28px;
+  }
+  .btn-hero {
+    width: 100%;
+    max-width: 320px;
+    padding: 16px 20px;
+    font-size: 16.5px;
+  }
+
+  .section {
+    padding: 56px 16px;
+  }
+  .section-title {
+    font-size: 27px;
+    line-height: 1.25;
+  }
+  .reality-section-title,
+  .comparison-title {
+    font-size: 26px;
+    line-height: 1.25;
+  }
+  .single-line-heading {
+    white-space: normal !important;
+    display: inline !important;
+  }
+  .section-sub {
+    font-size: 16px;
+  }
+
+  /* Video */
+  .video-container-wrap {
+    border-radius: 14px;
+  }
+  .video-browser-frame {
+    padding: 10px 14px;
+  }
+  .browser-controls {
+    width: 44px;
+    gap: 5px;
+  }
+  .ctrl-dot {
+    width: 9px;
+    height: 9px;
   }
   .browser-url-pill {
     display: none;
   }
+  .browser-spacer {
+    width: 44px;
+  }
+  .video-placeholder {
+    padding: 24px 16px;
+  }
+  .play-btn-circle {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+  .placeholder-heading {
+    font-size: 17px;
+  }
+  .placeholder-caption {
+    font-size: 13.5px;
+  }
+
+  /* Reality Cards */
   .reality-card-expanded {
-    min-height: auto;
+    padding: 18px 16px;
+    border-radius: 16px;
+  }
+  .reality-img-frame {
+    height: 170px;
+    margin-bottom: 16px;
+  }
+  .reality-title {
+    font-size: 21px;
+    margin-bottom: 8px;
+  }
+  .reality-desc {
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+
+  /* Founder Card */
+  .founder-card-clean {
+    padding: 22px 16px;
+    border-radius: 16px;
+  }
+  .founder-badge {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  .founder-name {
+    font-size: 14px;
+  }
+  .founder-quote {
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+
+  /* Feature Cards */
+  .benefit-card {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+  .benefit-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .benefit-title {
+    font-size: 20px;
+  }
+  .benefit-desc {
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+  .benefit-pill {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  /* Comparison */
+  .comp-col {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+  .comp-title {
+    font-size: 21px;
+    margin-bottom: 16px;
+  }
+  .comp-points {
+    font-size: 15px;
+    gap: 12px;
+  }
+
+  /* Pricing */
+  .pricing-card {
+    padding: 30px 16px;
+    border-radius: 18px;
+  }
+  .urgency-badge-row {
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  .urgency-pill,
+  .urgency-spots {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+  .price-display-wrap {
+    margin-bottom: 24px;
+  }
+  .price-numbers {
+    gap: 6px;
+  }
+  .price-inr {
+    font-size: 48px;
+  }
+  .price-currency {
+    font-size: 17px;
+  }
+  .price-usd {
+    font-size: 26px;
+  }
+  .price-terms {
+    font-size: 13px;
+  }
+  .offer-value-list {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .offer-value-list li {
+    font-size: 15px;
+    line-height: 1.45;
+    gap: 10px;
+  }
+  .check-icon {
+    font-size: 16px;
+  }
+  .btn-pricing {
+    padding: 15px 20px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+  .guarantee-text {
+    font-size: 12.5px;
+  }
+
+  /* FAQ */
+  .faq-question {
+    padding: 18px 14px;
+    font-size: 16.5px;
+    gap: 10px;
+  }
+  .faq-icon {
+    font-size: 20px;
+  }
+  .faq-answer {
+    padding: 0 14px;
+  }
+  .faq-item.active .faq-answer {
+    padding-bottom: 16px;
+  }
+  .faq-answer p {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  /* Decision Cards */
+  .decision-card {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+  .decision-badge-row {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .decision-badge-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+  .decision-badge-label {
+    font-size: 12px;
+  }
+  .decision-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .decision-desc {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 40px 16px;
+  }
+  .footer-brand-name {
+    font-size: 19px;
+  }
+  .footer-challenge-badge {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+  .founder-bio-line1 {
+    font-size: 14.5px;
+  }
+  .founder-bio-line2 {
+    font-size: 13.5px;
+  }
+  .footer-social-links {
+    gap: 8px;
+  }
+  .social-pill {
+    padding: 7px 12px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+  .footer-community-links {
+    gap: 6px;
+    font-size: 12.5px;
   }
 }
 
