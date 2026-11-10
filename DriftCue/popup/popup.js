@@ -56,7 +56,6 @@ const btnToggleHistory = document.getElementById("btn-toggle-history");
 const historyList = document.getElementById("history-list");
 const btnClearHistory = document.getElementById("btn-clear-history");
 const btnBackFromHistory = document.getElementById("btn-back-from-history");
-const btnBackFromHistoryTop = document.getElementById("btn-back-from-history-top");
 const btnOpenOptions = document.getElementById("btn-open-options");
 
 // Elements - Embedded Settings View
@@ -619,10 +618,7 @@ btnToggleHistory.addEventListener("click", () => {
   });
 });
 
-// Prominent Back Buttons from History View (Top & Bottom)
-if (btnBackFromHistoryTop) {
-  btnBackFromHistoryTop.addEventListener("click", () => switchView(previousActiveView));
-}
+// Prominent Back Button from History View (at the end)
 if (btnBackFromHistory) {
   btnBackFromHistory.addEventListener("click", () => switchView(previousActiveView));
 }
