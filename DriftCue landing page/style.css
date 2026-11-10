@@ -529,7 +529,8 @@ main {
 .hero-video-player {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #070B09;
   display: none;
 }
 
@@ -539,9 +540,12 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 40px 24px;
   text-align: center;
-  background: radial-gradient(circle at center, #1E293B 0%, #0F172A 100%);
+  background: linear-gradient(180deg, rgba(10, 16, 12, 0.72) 0%, rgba(7, 11, 9, 0.88) 100%),
+              url('assets/demo-poster.jpg') center/cover no-repeat;
+  cursor: pointer;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .placeholder-center {
@@ -552,20 +556,21 @@ main {
 }
 
 .play-btn-circle {
-  width: 80px;
-  height: 80px;
+  width: 84px;
+  height: 84px;
   border-radius: 50%;
-  background: #FFFFFF;
-  color: #0F172A;
+  background: #E8F5EE;
+  color: #1A382B;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
-  margin-bottom: 24px;
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.25);
+  font-size: 30px;
+  margin-bottom: 22px;
+  box-shadow: 0 10px 30px rgba(110, 231, 150, 0.35);
   cursor: pointer;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.25s ease;
+              box-shadow 0.25s ease,
+              background 0.2s ease;
   position: relative;
 }
 
@@ -574,7 +579,7 @@ main {
   position: absolute;
   inset: -6px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.45);
+  border: 2px solid rgba(110, 231, 150, 0.65);
   animation: playPulse 2.4s infinite ease-out;
   pointer-events: none;
 }
@@ -586,8 +591,9 @@ main {
 }
 
 .play-btn-circle:hover {
-  transform: scale(1.12);
-  box-shadow: 0 16px 40px rgba(255, 255, 255, 0.45);
+  transform: scale(1.1);
+  background: #FFFFFF;
+  box-shadow: 0 16px 40px rgba(110, 231, 150, 0.55);
 }
 
 .play-triangle {
@@ -595,16 +601,19 @@ main {
 }
 
 .placeholder-heading {
-  font-size: 24px;
+  font-size: clamp(20px, 2.5vw, 26px);
   font-weight: 800;
   color: #FFFFFF;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
 .placeholder-caption {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #94A3B8;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #C5D4CB;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
 /* ==========================================================================

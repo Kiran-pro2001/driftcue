@@ -50,26 +50,62 @@ function initVideoPlayer() {
   const video = document.getElementById("hero-video-player");
   const videoSource = document.getElementById("video-source");
   const placeholder = document.getElementById("video-placeholder");
-  const playBtn = document.getElementById("play-trigger-btn") || document.querySelector(".play-btn-circle");
 
   if (!video || !placeholder) return;
 
-  function handlePlayClick() {
+  let isPlaying = false;
+  const videoMilestones = { 25: false, 50: false, 75: false, 100: false };
+
+  function playVideo() {
     const hasSource = Boolean(videoSource && videoSource.src && videoSource.src.trim() !== "" && !videoSource.src.endsWith("/"));
     trackPosthogEvent("demo_video_click", { has_local_source: hasSource });
 
     if (hasSource) {
-      placeholder.style.display = "none";
+      placeholder.style.opacity = "0";
+      placeholder.style.pointerEvents = "none";
+      setTimeout(() => {
+        placeholder.style.display = "none";
+      }, 300);
+
       video.style.display = "block";
-      video.play().catch(() => {});
+      video.play().then(() => {
+        isPlaying = true;
+        trackPosthogEvent("demo_video_started", {
+          video_src: videoSource.src,
+          duration: video.duration || 114
+        });
+      }).catch((err) => {
+        console.warn("Auto-play prevented or user aborted:", err);
+      });
     } else {
       showVideoNoticeModal();
     }
   }
 
-  if (playBtn) {
-    playBtn.addEventListener("click", handlePlayClick);
-  }
+  // Trigger play by clicking play button or whole placeholder frame
+  placeholder.addEventListener("click", playVideo);
+
+  // Video progress telemetry
+  video.addEventListener("timeupdate", () => {
+    if (!video.duration) return;
+    const percent = Math.round((video.currentTime / video.duration) * 100);
+
+    [25, 50, 75, 100].forEach((mark) => {
+      if (percent >= mark && !videoMilestones[mark]) {
+        videoMilestones[mark] = true;
+        trackPosthogEvent("demo_video_progress", {
+          progress_percent: mark,
+          seconds_watched: Math.round(video.currentTime)
+        });
+      }
+    });
+  });
+
+  video.addEventListener("ended", () => {
+    trackPosthogEvent("demo_video_completed", {
+      total_duration: Math.round(video.duration)
+    });
+  });
 }
 
 /**

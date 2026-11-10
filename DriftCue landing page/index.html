@@ -32,7 +32,7 @@
 
   <!-- PostHog Analytics & Live Visitor Session Recording -->
   <script>
-    window.POSTHOG_KEY = "YOUR_POSTHOG_API_KEY";
+    window.POSTHOG_KEY = "phc_zBBacEBpAv8GLSEcUxEtwuBtC9FjooJ6SL5pAVhM9HwS";
     window.POSTHOG_HOST = "https://us.i.posthog.com";
 
     (function() {
@@ -56,8 +56,6 @@
           }
         };
         document.head.appendChild(phScript);
-      } else {
-        console.info("[PostHog] Ready for your PostHog API Key. Set window.POSTHOG_KEY in index.html to activate live visitor tracking & session replays.");
       }
     })();
   </script>
@@ -166,21 +164,28 @@
           </div>
 
           <div class="video-media-box">
-            <!-- Insert recording file path into <source src="..."> below -->
-            <video id="hero-video-player" class="hero-video-player" controls preload="metadata">
-              <source id="video-source" src="" type="video/mp4">
+            <!-- DriftCue Official Walkthrough Demo Video -->
+            <video 
+              id="hero-video-player" 
+              class="hero-video-player" 
+              controls 
+              preload="metadata"
+              poster="assets/demo-poster.jpg"
+              playsinline
+            >
+              <source id="video-source" src="assets/demo.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
 
-            <!-- Interactive Placeholder Frame -->
+            <!-- Interactive Premium Video Poster Overlay -->
             <div class="video-placeholder" id="video-placeholder">
               <div class="placeholder-center">
                 <button class="play-btn-circle" id="play-trigger-btn" aria-label="Play Walkthrough Demo">
                   <span class="play-triangle">▶</span>
                 </button>
-                <h3 class="placeholder-heading">30-Second Product Walkthrough</h3>
+                <h3 class="placeholder-heading">Watch DriftCue in Action</h3>
                 <p class="placeholder-caption">
-                  Click to play the live demo video.
+                  Full 1-minute 54-second walkthrough demo • Click anywhere to play
                 </p>
               </div>
             </div>
