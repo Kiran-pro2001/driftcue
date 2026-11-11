@@ -10,11 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
   initScrollReveal();
   init3DCardTilt();
   initAmbient3DBackground();
-  initAnalyticsTracking();
 });
 
 /**
- * FAQ Accordion Toggles & Tracking
+ * FAQ Accordion Toggles
  */
 function initFaqAccordion() {
   const faqItems = document.querySelectorAll(".faq-item");
@@ -34,56 +33,16 @@ function initFaqAccordion() {
       // Toggle current item
       const willOpen = !isOpen;
       item.classList.toggle("active", willOpen);
-
-      if (willOpen) {
-        const questionText = questionBtn.querySelector("span")?.innerText.trim() || "FAQ";
-        trackPosthogEvent("faq_question_expanded", { question: questionText });
-      }
     });
   });
 }
 
 /**
- * Video Player & Telemetry Handler
+ * Video Player Handler
  */
 function initVideoPlayer() {
   const video = document.getElementById("hero-video-player");
   if (!video) return;
-
-  const videoMilestones = { 25: false, 50: false, 75: false, 100: false };
-  let hasStarted = false;
-
-  video.addEventListener("play", () => {
-    if (!hasStarted) {
-      hasStarted = true;
-      trackPosthogEvent("demo_video_started", {
-        video_src: video.currentSrc || "assets/demo.mp4",
-        duration: Math.round(video.duration || 114)
-      });
-    }
-  });
-
-  // Video progress telemetry
-  video.addEventListener("timeupdate", () => {
-    if (!video.duration) return;
-    const percent = Math.round((video.currentTime / video.duration) * 100);
-
-    [25, 50, 75, 100].forEach((mark) => {
-      if (percent >= mark && !videoMilestones[mark]) {
-        videoMilestones[mark] = true;
-        trackPosthogEvent("demo_video_progress", {
-          progress_percent: mark,
-          seconds_watched: Math.round(video.currentTime)
-        });
-      }
-    });
-  });
-
-  video.addEventListener("ended", () => {
-    trackPosthogEvent("demo_video_completed", {
-      total_duration: Math.round(video.duration)
-    });
-  });
 }
 
 /**
@@ -429,117 +388,4 @@ function initAmbient3DBackground() {
   }
 
   animationFrameId = requestAnimationFrame(loop);
-}
-
-/**
- * Universal PostHog Event Dispatcher
- */
-function trackPosthogEvent(eventName, properties = {}) {
-  try {
-    if (window.posthog && typeof window.posthog.capture === "function") {
-      window.posthog.capture(eventName, {
-        page_title: document.title,
-        page_path: window.location.pathname,
-        referrer: document.referrer || "direct",
-        viewport_width: window.innerWidth,
-        viewport_height: window.innerHeight,
-        timestamp: new Date().toISOString(),
-        ...properties
-      });
-    }
-  } catch (err) {
-    // Graceful no-op to ensure zero site disruption
-  }
-}
-
-/**
- * Analytics Tracking: Dwell Time, Scroll Depth, CTAs, and WhatsApp Leads
- */
-function initAnalyticsTracking() {
-  const startTime = Date.now();
-
-  // 1. Time-Spent Milestones (15s, 30s, 60s, 120s, 300s)
-  const milestones = [
-    { seconds: 15, label: "15_seconds" },
-    { seconds: 30, label: "30_seconds" },
-    { seconds: 60, label: "1_minute" },
-    { seconds: 120, label: "2_minutes" },
-    { seconds: 300, label: "5_minutes" }
-  ];
-
-  milestones.forEach(({ seconds, label }) => {
-    setTimeout(() => {
-      trackPosthogEvent("time_spent_milestone", {
-        milestone: label,
-        seconds_elapsed: seconds
-      });
-    }, seconds * 1000);
-  });
-
-  // Track total session dwell time on page unload
-  window.addEventListener("pagehide", () => {
-    const totalSeconds = Math.round((Date.now() - startTime) / 1000);
-    trackPosthogEvent("session_dwell_time", {
-      total_seconds: totalSeconds
-    });
-  });
-
-  // 2. CTA & WhatsApp Click Tracking
-  document.addEventListener("click", (e) => {
-    const targetLink = e.target.closest("a");
-    if (!targetLink) return;
-
-    const href = targetLink.getAttribute("href") || "";
-    const text = targetLink.innerText.trim();
-    const section = targetLink.closest("section")?.id || targetLink.closest("header")?.id || "other";
-
-    // Detect WhatsApp Leads
-    if (href.includes("wa.me") || href.includes("whatsapp.com")) {
-      trackPosthogEvent("whatsapp_lead_initiated", {
-        button_text: text,
-        source_section: section,
-        destination_url: href
-      });
-    } 
-    // Detect general navigation or internal anchor CTAs
-    else if (targetLink.classList.contains("btn")) {
-      trackPosthogEvent("cta_button_clicked", {
-        button_text: text,
-        source_section: section,
-        destination_url: href
-      });
-    }
-    // Detect Outbound Social Links
-    else if (targetLink.classList.contains("social-pill") || targetLink.classList.contains("comm-link")) {
-      trackPosthogEvent("social_link_clicked", {
-        platform: text,
-        destination_url: href
-      });
-    }
-  });
-
-  // 3. Scroll Depth Milestones (25%, 50%, 75%, 100%)
-  const scrollMilestones = { 25: false, 50: false, 75: false, 100: false };
-  let scrollThrottle = null;
-
-  window.addEventListener("scroll", () => {
-    if (scrollThrottle) return;
-    scrollThrottle = setTimeout(() => {
-      scrollThrottle = null;
-
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (docHeight <= 0) return;
-
-      const scrollPercent = Math.min(100, Math.round((window.scrollY / docHeight) * 100));
-
-      [25, 50, 75, 100].forEach((mark) => {
-        if (scrollPercent >= mark && !scrollMilestones[mark]) {
-          scrollMilestones[mark] = true;
-          trackPosthogEvent("scroll_depth_reached", {
-            depth_percent: mark
-          });
-        }
-      });
-    }, 250);
-  }, { passive: true });
 }
