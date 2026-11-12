@@ -1303,10 +1303,23 @@ main {
   margin-bottom: 4px;
 }
 
+.footer-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
 .footer-brand-name {
   font-size: 22px;
   font-weight: 800;
   color: var(--text-primary);
+  line-height: 1.15;
+}
+
+.footer-brand-sub {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8e9e96;
+  letter-spacing: 0.02em;
 }
 
 .footer-challenge-badge {
